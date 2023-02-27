@@ -26,13 +26,13 @@ namespace TicTacToe
             resetButton.Init();
             resetButton.OnButtonClicked += level.ResetGame;
         }
-
+        
         public void AddMark(int i, int j, Mark mark)
         {
             marks[i, j] = mark;
             marks[i, j].OnMarkPressed += HandleOnMarkPressed;
         }
-
+        
         private void HandleOnMarkPressed()
         {
             RefreshMarksData();
@@ -54,14 +54,16 @@ namespace TicTacToe
 
         private void RefreshMarksData()
         {
+            int markIndex = 0;
             for (int i = 0; i < marks.GetLength(0); i++)
             {
                 for (int j = 0; j < marks.GetLength(1); j++)
                 {
-                    if (!boardData.markData.ContainsKey(marks[i,j].transform.position)) 
-                        boardData.markData.Add(marks[i,j].transform.position, marks[i, j].IDFromPlayer);
+                    if (!boardData.markData.ContainsKey(markIndex)) 
+                        boardData.markData.Add(markIndex, marks[i, j].IDFromPlayer);
                     else
-                        boardData.markData[marks[i, j].transform.position] = marks[i, j].IDFromPlayer;
+                        boardData.markData[markIndex] = marks[i, j].IDFromPlayer;
+                    markIndex++;
                 }
             }
         }

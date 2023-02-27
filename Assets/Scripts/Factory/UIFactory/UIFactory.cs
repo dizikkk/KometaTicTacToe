@@ -35,15 +35,17 @@ namespace TicTacToe.Factory
 
         private void CreateMarks(Board board)
         {
+            int markIndex = 0;
             for (int i = 0; i < 3; i++)
             {
                 for (int j = 0; j < 3; j++)
                 {
                     int idFromPlayer = -1;
                     Mark mark = diContainer.InstantiatePrefabForComponent<Mark>(factoryConfig.markPrefab, board.grid.transform);
-                    if (boardData.markData.TryGetValue(mark.transform.position, out int value)) idFromPlayer = value;
+                    if (boardData.markData.TryGetValue(markIndex, out int value)) idFromPlayer = value;
                     mark.Init(idFromPlayer);
                     board.AddMark(i, j, mark);
+                    markIndex++;
                 }
             }
         }

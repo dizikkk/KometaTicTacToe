@@ -19,6 +19,7 @@ namespace TicTacToe
         private int idFromPlayer = -1;
         
         public MarkButton MarkButton => markButton;
+
         public int IDFromPlayer => idFromPlayer;
 
         private MarksConfig marksConfig;
