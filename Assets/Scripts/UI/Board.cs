@@ -1,5 +1,6 @@
 ﻿using TicTacToe.Data;
 using UnityEngine;
+using UnityEngine.UI;
 using Zenject;
 
 namespace TicTacToe
@@ -8,6 +9,8 @@ namespace TicTacToe
     {
         [SerializeField]
         private ResetButton resetButton;
+        
+        public GridLayoutGroup grid;
         
         private Level level;
         private Mark[,] marks = new Mark[3, 3];

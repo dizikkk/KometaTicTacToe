@@ -10,17 +10,15 @@ namespace TicTacToe.Factory
     {
         private readonly DiContainer diContainer;
         private UIFactoryConfig factoryConfig;
-        private BoardConfig boardConfig;
         private Canvas canvas;
         private Board board;
         private BoardData boardData;
 
         [Inject]
-        public UIFactory(DiContainer diContainer, UIFactoryConfig factoryConfig, BoardConfig boardConfig, LocalSaveLoad localSaveLoad)
+        public UIFactory(DiContainer diContainer, UIFactoryConfig factoryConfig, LocalSaveLoad localSaveLoad)
         {
             this.diContainer = diContainer;
             this.factoryConfig = factoryConfig;
-            this.boardConfig = boardConfig;
             boardData = localSaveLoad.GameData.boardData;
         }
         
@@ -37,20 +35,16 @@ namespace TicTacToe.Factory
 
         private void CreateMarks(Board board)
         {
-            Vector3 spawnPosition = boardConfig.startedMarkPosition;
             for (int i = 0; i < 3; i++)
             {
-                spawnPosition.x = boardConfig.startedMarkPosition.x;
                 for (int j = 0; j < 3; j++)
                 {
                     int idFromPlayer = -1;
-                    Mark mark = diContainer.InstantiatePrefabForComponent<Mark>(factoryConfig.markPrefab, spawnPosition, Quaternion.identity, board.transform);
+                    Mark mark = diContainer.InstantiatePrefabForComponent<Mark>(factoryConfig.markPrefab, board.grid.transform);
                     if (boardData.markData.TryGetValue(mark.transform.position, out int value)) idFromPlayer = value;
                     mark.Init(idFromPlayer);
                     board.AddMark(i, j, mark);
-                    spawnPosition.x += boardConfig.stepByXForSpawnMark;
                 }
-                spawnPosition.y += boardConfig.stepByYForSpawnMark;
             }
         }
     }
